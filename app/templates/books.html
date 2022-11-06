@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="row row-cols-1 row-cols-md-5 g-4">
+        {% for book in books %}    
+        <div class="col">
+          <div class="card">
+            <img style="width:150px;height:150px" src="{{ url_for('static', filename=book.filename) }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ book.title}}</h5>
+              <p class="card-text"> author : {{ book.author }} 
+              <p class="card-text"> Ganre : {{book.genre }} - {{book.id}}</p>
+              
+              <form action="/books/loandata"  enctype=multipart/form-data>
+                <label for="return_day">Return_day:</label>
+                <input type="date"  name="return_day">
+                <input type="hidden" name="book_id" value={{book.id}}> 
+                <input class="btn btn-outline-success" type="submit"> 
+              </form>
+                
+              
+              
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock%}

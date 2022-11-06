@@ -1,0 +1,12 @@
+{% extends "mainpageadmin.html" %}
+{% block content %}
+<form action="/administration/action/addbookindb" method="POST"  enctype=multipart/form-data>
+    Title <input type="text" name="title">
+    Author <input type="text" name="author">
+    Genre <input type="text" name="genre">
+    Quantity <input type="text" name="Quantity">
+    Year <input type="text" name="year"><br>
+    Image <input type="file" name="file"> 
+    <input type="submit">
+</form>
+{% endblock %}
