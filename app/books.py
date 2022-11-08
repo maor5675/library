@@ -11,7 +11,9 @@ con.row_factory = sqlite3.Row
 cur = con.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS books (bookid INTEGER  PRIMARY KEY AUTOINCREMENT ,title, author, genre, year , Quantity , filename)")
 cur.execute("CREATE TABLE IF NOT EXISTS user (id INTEGER  PRIMARY KEY AUTOINCREMENT , username UNIQUE, password, email,address,phonenumber)")
-cur.execute("CREATE TABLE IF NOT EXISTS loans (loanid INTEGER  PRIMARY KEY AUTOINCREMENT , username int FOREIGN KEY REFERENCES user(id) , bookid int FOREIGN KEY REFERENCES books(bookid), takendate ,returndate)")
+cur.execute("CREATE TABLE IF NOT EXISTS loans (loanid INTEGER  PRIMARY KEY AUTOINCREMENT ,\
+    takendate DATE ,returndate DATE, userid INTEGER NOT NULL,bookid INTEGER NOT NULL,\
+    FOREIGN KEY(userid) REFERENCES user(id),FOREIGN KEY(bookid) REFERENCES books(bookid))")
 cur.execute("CREATE TABLE IF NOT EXISTS purchasebooks (buyid INTEGER  PRIMARY KEY AUTOINCREMENT , username,price)")
 con.commit()
 
@@ -69,7 +71,8 @@ def loandata():
     user_id = g.user['id']
     book_id = request.args.get('book_id')
     takendateDate = datetime.date.today() 
-    #con.cursor().execute(
-       # f"INSERT INTO loans ( takendate ,returndate, username,bookid) VALUES (?, ?,?,?)",(returndate,takendateDate),
+    con.cursor().execute(
+        f"INSERT INTO loans ( takendate ,returndate, userid,bookid) VALUES (?, ?,?,?)",(returndate,takendateDate,user_id,book_id)),
+    con.commit()
     return "data accepted"
 

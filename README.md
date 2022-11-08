@@ -6,9 +6,14 @@ books/ - show all books
 books/deletebook - removes a book
 books/addbook_indb - adds a new book to database
 books/addbook - shows form for adding book
+books/loandata - loan a book
 
 ## login.py
 Contains methods/endpoints:
+
+## Entrance to the admin zone
+username = maor
+password = 1234
 
 # Install and run
 1. add a virtual env using 
